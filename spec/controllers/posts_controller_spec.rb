@@ -25,29 +25,22 @@ RSpec.describe PostsController, type: :controller do
         }
       }
       it "redirect to post_path" do
-        post :create, params: {
-          post: {
-            subject: "test",
-            body: "puutss"
-          }
-        }
-        post = Post.last
-        expect(response).should redirect_to post_path(post)
+        subject
+        expect(response).should redirect_to post_path(Post.last)
       end
     end
     context "post create unsuccessful" do
-        subject {
-          post :create, params: {
-            post: {
-              subject: "",
-              body: "puuuuuuuuuuu"
-            }
+      subject {
+        post :create, params: {
+          post: {
+            subject: "",
+            body: "puuuuuuuuuuu"
           }
         }
+      }
       it "redirect to new_post_path" do
         expect(subject).to render_template(:new)
       end
     end
   end
-
 end
